@@ -2,6 +2,7 @@ from flask import Flask, request, send_from_directory, render_template, jsonify
 from werkzeug.utils import secure_filename
 import subprocess
 import os
+from test import test_esrgan
 
 app = Flask(__name__)
 
@@ -36,20 +37,8 @@ def process_image():
         file.save(file_path)
         print('File saved to:', file_path)
 
-        # Call the Python script with subprocess
-        script_path = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'ESRGAN', 'test.py')
-        python_process = subprocess.Popen(['python', script_path, file_path], stdout=subprocess.PIPE, stderr=subprocess.PIPE)
-        stdout, stderr = python_process.communicate()
-
-        # Check for errors
-        if python_process.returncode != 0:
-            print(f"Error executing script: {stderr.decode('utf-8')}")
-        else:
-            print(f"Script output: {stdout.decode('utf-8')}")
-
-        # Assuming stdout contains the path to the processed image
-        processed_image_path = stdout.decode().strip()
-        print('Processed image path:', processed_image_path)
+        # Call the ESRGAN testing function
+        processed_image_path = test_esrgan(file_path)
 
         # Return the path to the processed image
         return jsonify({'processed_image_path': processed_image_path}), 200
