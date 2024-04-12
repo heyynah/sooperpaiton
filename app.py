@@ -2,7 +2,7 @@ from flask import Flask, request, send_from_directory, render_template, jsonify
 from werkzeug.utils import secure_filename
 import subprocess
 import os
-from test import test_esrgan
+from ESRGAN.test import test_esrgan
 
 app = Flask(__name__)
 
