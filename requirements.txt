@@ -1,3 +1,4 @@
 torch
 opencv-python==4.5.3.56
 flask
+gunicorn==21.2.0
