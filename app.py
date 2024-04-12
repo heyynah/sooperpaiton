@@ -37,14 +37,15 @@ def process_image():
         print('File saved to:', file_path)
 
         # Call the Python script with subprocess
-        script_path = 'ESRGAN/test.py'
+        script_path = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'ESRGAN', 'test.py')
         python_process = subprocess.Popen(['python', script_path, file_path], stdout=subprocess.PIPE, stderr=subprocess.PIPE)
         stdout, stderr = python_process.communicate()
 
         # Check for errors
-        if stderr:
-            print('Error:', stderr)
-            return jsonify({'error': 'Internal server error'}), 500
+        if python_process.returncode != 0:
+            print(f"Error executing script: {stderr.decode('utf-8')}")
+        else:
+            print(f"Script output: {stdout.decode('utf-8')}")
 
         # Assuming stdout contains the path to the processed image
         processed_image_path = stdout.decode().strip()
