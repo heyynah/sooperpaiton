@@ -30,6 +30,7 @@ def process_image():
         filename = secure_filename(file.filename)
         file_path = os.path.join(app.config['UPLOAD_FOLDER'], filename)
         file.save(file_path)
+        print('File saved to:', file_path)
 
         # Call the Python script with subprocess
         script_path = 'ESRGAN/test.py'
@@ -43,6 +44,7 @@ def process_image():
 
         # Assuming stdout contains the path to the processed image
         processed_image_path = stdout.decode().strip()
+        print('Processed image path:', processed_image_path)
 
         # Return the path to the processed image
         return jsonify({'processed_image_path': processed_image_path}), 200
@@ -51,6 +53,8 @@ def process_image():
 def get_processed_image(image_name):
     print('Getting processed image...')
     image_path = os.path.join('ESRGAN', 'results', image_name)
+    print('Image path:', image_path)
+    
     return send_file(image_path)
     
 @app.route('/')
