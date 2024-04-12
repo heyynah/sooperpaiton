@@ -9,6 +9,10 @@ app = Flask(__name__)
 UPLOAD_FOLDER = 'ESRGAN/LR/'
 app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 
+# Define the directory to store processed images
+RESULTS_FOLDER = 'ESRGAN/results/'
+app.config['RESULTS_FOLDER'] = RESULTS_FOLDER
+
 # Define the route to process the image
 @app.route('/process_image', methods=['POST'])
 def process_image():
@@ -52,7 +56,7 @@ def process_image():
 @app.route('/processed_images/<path:image_name>')
 def get_processed_image(image_name):
     print('Getting processed image...')
-    return send_from_directory('ESRGAN/results', image_name)
+    return send_from_directory(app.config['RESULTS_FOLDER'], image_name)
     
 @app.route('/')
 def home():
