@@ -1,4 +1,4 @@
-from flask import Flask, request, send_file, render_template, jsonify
+from flask import Flask, request, send_from_directory, render_template, jsonify
 from werkzeug.utils import secure_filename
 import subprocess
 import os
@@ -52,10 +52,7 @@ def process_image():
 @app.route('/processed_images/<path:image_name>')
 def get_processed_image(image_name):
     print('Getting processed image...')
-    image_path = os.path.join('ESRGAN', 'results', image_name)
-    print('Image path:', image_path)
-    
-    return send_file(image_path)
+    return send_from_directory('ESRGAN/results', image_name)
     
 @app.route('/')
 def home():
