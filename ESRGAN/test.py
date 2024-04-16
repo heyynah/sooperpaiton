@@ -3,7 +3,7 @@ import glob
 import cv2
 import numpy as np
 import torch
-import RRDBNet_arch as arch
+import ESRGAN.RRDBNet_arch as arch
 
 def test_esrgan():
     print('Testing ESRGAN')
@@ -37,6 +37,7 @@ def test_esrgan():
 
         output_path = f'ESRGAN/results/{base}_rlt{ext}'
         cv2.imwrite(output_path, output)
+
+        print('Testing complete.')
     return output_path
 
-    print('Testing complete.')

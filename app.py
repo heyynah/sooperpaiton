@@ -38,7 +38,7 @@ def process_image():
         print('File saved to:', file_path)
 
         # Call the ESRGAN testing function
-        processed_image_path = test_esrgan(file_path)
+        processed_image_path = test_esrgan()
 
         # Return the path to the processed image
         return jsonify({'processed_image_path': processed_image_path}), 200
